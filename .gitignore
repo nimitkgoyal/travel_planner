@@ -1,2 +1,3 @@
 # Ignore the configuration file containing API keys
 .env
+.venv/

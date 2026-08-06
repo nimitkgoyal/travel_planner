@@ -135,7 +135,6 @@ checkpointer.setup()
 
 app = graph.compile(checkpointer=checkpointer)
 
-
 if __name__ == "__main__":
     config = {
         "configurable": {

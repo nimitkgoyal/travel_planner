@@ -39,9 +39,7 @@ def flight_agent(state: TravelState):
     flight_data = search_flights(query)
     return {
         "flight_results": flight_data,
-        "messages": [
-            AIMessage(content = f"Flight results fetched")
-        ],
+        "messages": [AIMessage(content = f"Flight results fetched")],
         "llm_calls": state.get("llm_calls", 0) + 1
     }
 
@@ -60,7 +58,6 @@ def hotel_agent(state: TravelState):
 
 # Itinerary Agent
 def itinerary_agent(state: TravelState):
-
     prompt = f"""
     Create a travel itinerary.
     User Query:
@@ -73,12 +70,7 @@ def itinerary_agent(state: TravelState):
     {state['hotel_results']}
     """
 
-    response = llm.invoke([
-        SystemMessage(
-            content = "You are an expert travel planner"
-        ),
-        HumanMessage(content = prompt)
-    ])
+    response = llm.invoke([SystemMessage(content = "You are an expert travel planner"), HumanMessage(content = prompt)])
 
     return {
         "itinerary": response.content,
@@ -88,7 +80,6 @@ def itinerary_agent(state: TravelState):
 
 # Final Response Agent
 def final_agent(state: TravelState):
-
     final_prompt = f"""
     Generate final travel response.
 
@@ -102,15 +93,12 @@ def final_agent(state: TravelState):
     {state['itinerary']}
     """
 
-    response = llm.invoke([
-        HumanMessage(content = final_prompt)
-    ])
+    response = llm.invoke([HumanMessage(content = final_prompt)])
 
     return {
         "messages": [response],
         "llm_calls": state.get("llm_calls", 0) + 1
     }
-
 
 graph = StateGraph(TravelState)
 
@@ -133,7 +121,7 @@ _conn.autocommit = True
 checkpointer = PostgresSaver(_conn)
 checkpointer.setup()
 
-app = graph.compile(checkpointer=checkpointer)
+app = graph.compile(checkpointer = checkpointer)
 
 if __name__ == "__main__":
     config = {
@@ -146,9 +134,7 @@ if __name__ == "__main__":
 
     result = app.invoke(
         {
-            "messages": [
-                HumanMessage(content = user_input)
-            ],
+            "messages": [HumanMessage(content = user_input)],
             "user_query": user_input,
             "flight_results": "",
             "hotel_results": "",

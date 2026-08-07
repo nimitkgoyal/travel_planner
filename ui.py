@@ -305,7 +305,7 @@ with st.sidebar:
     st.markdown("<div class='sidebar-title'>🌍 AI Travel Planner</div>", unsafe_allow_html=True)
     st.markdown("---")
 
-    thread_id = st.text_input("👤 User ID", value="aarohi_user",
+    thread_id = st.text_input("👤 User ID", value="nimitgoyal",
                               help="Your session ID — keeps travel history across queries")
 
     st.markdown("<div class='sidebar-title'>Powered by</div>", unsafe_allow_html=True)
@@ -451,7 +451,7 @@ if generate:
         # Save
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"travel_plan_{timestamp}.md"
-        save_dir = os.path.join(os.path.dirname(__file__), "travel_plans")
+        save_dir = os.path.join(os.path.dirname(__file__), "output")
         os.makedirs(save_dir, exist_ok=True)
 
         file_content = f"""# Travel Plan
@@ -491,5 +491,5 @@ if generate:
                                file_name=filename, mime="text/markdown",
                                use_container_width=True)
         with info_col:
-            st.markdown(f"<div class='save-bar'>📁 Auto-saved → <code>travel_plans/{filename}</code></div>",
+            st.markdown(f"<div class='save-bar'>📁 Auto-saved → <code>.output/{filename}</code></div>",
                         unsafe_allow_html=True)
